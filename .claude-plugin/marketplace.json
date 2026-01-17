@@ -1,0 +1,22 @@
+{
+  "name": "modakmodak-tools",
+  "owner": {
+    "name": "minguk",
+    "email": ""
+  },
+  "metadata": {
+    "description": "Laravel & Flutter 개발을 위한 Claude Code 플러그인 모음"
+  },
+  "plugins": [
+    {
+      "name": "laravel-basic",
+      "source": "./plugins/laravel-basic",
+      "description": "Laravel 프로젝트 개발 규칙 및 명령어"
+    },
+    {
+      "name": "flutter-basic",
+      "source": "./plugins/flutter-basic",
+      "description": "Flutter 프로젝트 개발 규칙 및 명령어"
+    }
+  ]
+}
