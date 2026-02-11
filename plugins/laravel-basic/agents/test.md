@@ -10,6 +10,10 @@ allowed-tools:
   - Glob
   - WebFetch
   - "mcp__playwright__*"
+skills:
+  - e2e-scenario
+  - api-test
+  - e2e-playwright
 model: sonnet
 ---
 
