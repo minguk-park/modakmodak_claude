@@ -1,5 +1,3 @@
 {
-  "enabledPlugins": {
-    "laravel-basic@modakmodak-tools": true
-  }
+  "enabledPlugins": {}
 }

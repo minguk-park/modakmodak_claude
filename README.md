@@ -4,7 +4,9 @@ Laravel & Flutter 개발을 위한 Claude Code 플러그인 모음
 
 ## 설치 방법
 
-### 1. 마켓플레이스 추가 (최초 1회)
+아래 두 단계 모두 **최초 1회**만 실행하면 됩니다. 유저 레벨로 설치되어 모든 프로젝트에서 사용 가능합니다.
+
+### 1. 마켓플레이스 추가
 ```
 /plugin marketplace add minguk-park/modakmodak_claude
 ```
