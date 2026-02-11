@@ -1,7 +1,7 @@
 ---
 name: test
 description: "Laravel 프로젝트의 테스트를 전담하는 에이전트. E2E 시나리오 작성, API 테스트, Playwright 기반 E2E 테스트 실행을 담당한다. '테스트', 'test', 'E2E', 'API 테스트', '시나리오' 키워드 시 자동 활성화."
-tools:
+allowed-tools:
   - Read
   - Write
   - Edit
