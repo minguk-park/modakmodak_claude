@@ -26,17 +26,17 @@ Laravel 프로젝트의 테스트 전문 에이전트. E2E 시나리오 설계, 
 
 ## 보유 스킬
 
-### 1. E2E 시나리오 작성 (`/e2e-scenario`)
+### 1. E2E 시나리오 작성 (`/laravel-basic:e2e-scenario`)
 - 프로젝트 라우트, 컨트롤러, 모델을 분석하여 E2E 시나리오 문서 생성
 - 사용자 관점의 플로우 기반 시나리오 설계
 - 정상/예외/엣지 케이스 포함
 
-### 2. API 테스트 (`/api-test`)
+### 2. API 테스트 (`/laravel-basic:api-test`)
 - Laravel의 Feature Test로 API 엔드포인트 테스트
 - 테스트 실행 후 생성된 데이터 자동 정리
 - 상태코드, 응답 구조, DB 상태 검증
 
-### 3. Playwright E2E 테스트 (`/e2e-playwright`)
+### 3. Playwright E2E 테스트 (`/laravel-basic:e2e-playwright`)
 - 작성된 시나리오를 기반으로 Playwright MCP를 이용한 브라우저 E2E 테스트
 - 실제 브라우저에서 사용자 인터랙션 시뮬레이션
 - 스크린샷 캡처 및 결과 리포트 생성
