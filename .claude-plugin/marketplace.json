@@ -9,13 +9,18 @@
   },
   "plugins": [
     {
-      "name": "laravel-basic",
-      "source": "./plugins/laravel-basic",
+      "name": "modak-core",
+      "source": "./plugins/modak-core",
+      "description": "모든 프로젝트에서 공통으로 사용하는 핵심 명령어 및 도구"
+    },
+    {
+      "name": "laravel",
+      "source": "./plugins/laravel",
       "description": "Laravel 프로젝트 개발 규칙 및 명령어"
     },
     {
-      "name": "flutter-basic",
-      "source": "./plugins/flutter-basic",
+      "name": "flutter",
+      "source": "./plugins/flutter",
       "description": "Flutter 프로젝트 개발 규칙 및 명령어"
     }
   ]

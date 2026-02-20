@@ -55,15 +55,15 @@ Step 3: uv로 엑셀 생성
 ### 엑셀 생성
 ```bash
 # JSON → 엑셀
-uv run --with openpyxl python plugins/laravel-basic/skills/functional-spec/scripts/create_excel.py --data spec.json --output 기능명세서.xlsx
+uv run --with openpyxl python plugins/laravel/skills/functional-spec/scripts/create_excel.py --data spec.json --output 기능명세서.xlsx
 
 # 샘플 생성
-uv run --with openpyxl python plugins/laravel-basic/skills/functional-spec/scripts/create_excel.py --sample --output sample.xlsx
+uv run --with openpyxl python plugins/laravel/skills/functional-spec/scripts/create_excel.py --sample --output sample.xlsx
 ```
 
 ### Figma 데이터 파싱
 ```bash
-uv run python plugins/laravel-basic/skills/functional-spec/scripts/parse_figma.py --input figma.json --output spec.json
+uv run python plugins/laravel/skills/functional-spec/scripts/parse_figma.py --input figma.json --output spec.json
 ```
 
 ## 엑셀 출력

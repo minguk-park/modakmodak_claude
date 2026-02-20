@@ -37,7 +37,7 @@ mcp__figma__get_metadata → 전체 구조 파악
 
 ### Step 3: 엑셀 생성 (필수 명령어)
 ```bash
-uv run --with openpyxl python plugins/laravel-basic/skills/functional-spec/scripts/create_excel.py --data spec.json --output 기능명세서.xlsx
+uv run --with openpyxl python plugins/laravel/skills/functional-spec/scripts/create_excel.py --data spec.json --output 기능명세서.xlsx
 ```
 
 ## MCP 도구
