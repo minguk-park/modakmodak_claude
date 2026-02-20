@@ -1,6 +1,7 @@
 ---
 name: readme
 description: "프로젝트를 분석하여 README.md를 자동 생성한다. '리드미', 'readme', 'README 생성' 키워드 시 자동 활성화."
+disable-model-invocation: true
 allowed-tools:
   - Read
   - Write

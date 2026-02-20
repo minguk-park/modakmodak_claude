@@ -1,6 +1,7 @@
 ---
 name: notion-guide
-description: "Notion 페이지에 문서를 작성할 때 사용. 다양한 블록 타입(heading, callout, code, divider, numbered_list, toggle 등)의 MCP 사용법과 rich_text annotations 가이드를 제공한다. 'Notion', '노션', '노션 작성', '노션 문서', '페이지 작성' 키워드 시 자동 활성화."
+description: "Notion MCP 블록 타입별 사용법과 rich_text annotations 레퍼런스. heading, callout, code, divider, table 등의 JSON 구조를 안내한다. 'notion 가이드', 'notion 블록 사용법', '노션 API 레퍼런스' 키워드 시 활성화."
+disable-model-invocation: true
 allowed-tools: Bash
 argument-hint: "[page-title or page-id]"
 ---

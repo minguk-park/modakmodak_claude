@@ -1,6 +1,7 @@
 ---
 name: functional-spec
 description: "Figma 분석 결과로 기능명세서 엑셀 생성. '기능명세서', '기능정의서', '화면정의서', '스펙문서', '엑셀' 키워드 시 자동 활성화. @figma-spec 에이전트와 함께 사용."
+disable-model-invocation: true
 ---
 
 # 기능명세서 스킬

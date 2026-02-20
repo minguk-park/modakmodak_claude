@@ -1,6 +1,7 @@
 ---
 name: e2e-scenario
 description: "Laravel 프로젝트의 E2E 시나리오를 작성한다. 라우트, 컨트롤러, 모델을 분석하여 사용자 관점의 테스트 시나리오 문서를 생성한다. '시나리오', 'E2E 시나리오', '테스트 시나리오', '테스트 케이스' 키워드 시 자동 활성화."
+disable-model-invocation: true
 allowed-tools:
   - Read
   - Grep

@@ -1,6 +1,7 @@
 ---
 name: create-skill
 description: "새 스킬을 생성한다. '스킬 만들어', 'skill 생성', 'create skill' 키워드 시 자동 활성화."
+disable-model-invocation: true
 argument-hint: "[스킬명] [설명]"
 allowed-tools:
   - Read
@@ -148,3 +149,32 @@ skills:
 - 500줄 이내로 작성한다 (상세 내용은 별도 파일로 분리)
 - 본문은 한글로 작성한다
 - 워크플로우는 명확한 Step으로 구성한다
+
+## 스킬 vs 에이전트 키워드 충돌 주의
+
+스킬의 description 키워드가 에이전트(subagent)의 description 키워드와 겹치면, **스킬이 먼저 매칭되어 에이전트가 호출되지 않는 문제**가 발생한다.
+
+### 원인
+- Skill 도구는 시스템 레벨에서 "매칭 시 다른 응답보다 먼저 호출"하라는 지시가 있음
+- Task 도구(에이전트)에는 이런 강제 지시가 없음
+- 결과: 같은 키워드에 스킬과 에이전트가 모두 매칭되면 스킬이 우선 실행됨
+
+### 해결 방법
+1. **레퍼런스/가이드 성격의 스킬**에는 `disable-model-invocation: true`를 설정하여 사용자가 `/skill-name`으로만 호출하게 한다
+2. **스킬과 에이전트의 description 키워드 영역을 분리**한다
+   - 스킬: 사용법, 가이드, 레퍼런스 관련 키워드
+   - 에이전트: 작업 실행, 생성, 변환 관련 키워드
+3. **실제 작업을 수행하는 에이전트**와 **참조용 스킬**이 같은 도메인에 있을 때 특히 주의한다
+
+### 예시
+```
+# Bad - 키워드 충돌
+스킬 description: "노션 작성, 노션 문서"
+에이전트 description: "노션 작성, 노션 변환"
+→ "노션에 작성해줘" 요청 시 스킬이 먼저 호출됨
+
+# Good - 키워드 분리
+스킬 description: "notion 가이드, notion 블록 사용법"  + disable-model-invocation: true
+에이전트 description: "노션 작성, 노션 변환, 마크다운을 노션으로"
+→ "노션에 작성해줘" 요청 시 에이전트가 정상 호출됨
+```

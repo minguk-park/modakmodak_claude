@@ -1,6 +1,7 @@
 ---
 name: review
 description: "코드 리뷰를 수행한다. 파일, 디렉토리, PR 번호, git diff 대상을 지정할 수 있다. '리뷰', 'review', '코드 리뷰' 키워드 시 자동 활성화."
+disable-model-invocation: true
 allowed-tools:
   - Read
   - Grep

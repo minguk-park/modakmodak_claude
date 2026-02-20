@@ -1,6 +1,7 @@
 ---
 name: api-test
 description: "Laravel API 엔드포인트를 테스트하고 테스트 데이터를 정리한다. Feature Test 생성, 실행, 데이터 클린업을 수행한다. 'API 테스트', 'api test', '테스트 실행', '테스트 생성' 키워드 시 자동 활성화."
+disable-model-invocation: true
 allowed-tools:
   - Read
   - Write
