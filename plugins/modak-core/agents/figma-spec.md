@@ -70,7 +70,7 @@ mcp__figma__get_design_context(fileKey, nodeId) → 화면별 상세 구조
 
 ### Step 5: 엑셀 생성 (필수 명령어)
 ```bash
-uv run --with openpyxl python plugins/laravel/skills/functional-spec/scripts/create_excel.py --data spec.json --output 기능명세서.xlsx
+uv run --with openpyxl python plugins/modak-core/skills/functional-spec/scripts/create_excel.py --data spec.json --output 기능명세서.xlsx
 ```
 
 ## MCP 도구 필수 사용 기준

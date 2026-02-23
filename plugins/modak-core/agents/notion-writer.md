@@ -1,7 +1,7 @@
 ---
 name: notion-writer
 description: 마크다운 파일을 Notion 페이지로 자동 변환하는 에이전트. 마크다운의 heading, list, code block, table 등을 Notion 블록으로 변환하여 작성한다. '노션 작성', '노션 변환', '노션에 올려', 'Notion 작성', 'markdown to notion' 키워드 시 자동 활성화.
-tools: Read, Grep, Glob, Bash
+tools: Read, Grep, Glob, Bash, ToolSearch
 mcpServers:
   - notion
 model: inherit
@@ -14,6 +14,11 @@ You are a Notion document writer agent that converts markdown files to Notion pa
 
 ## Core Workflow
 
+0. **MCP 도구 로드 (최우선)**: Notion MCP 도구는 deferred tool이므로, 반드시 ToolSearch로 먼저 로드해야 한다.
+   ```
+   ToolSearch(query: "+notion API") → Notion MCP 도구 로드
+   ```
+   이 단계를 건너뛰면 MCP 도구 호출이 실패한다.
 1. **입력 확인**: 마크다운 파일 경로와 대상 Notion 페이지(제목 또는 ID)를 확인
 2. **마크다운 파싱**: 파일을 읽고 구조를 분석 (heading, paragraph, list, code, table 등)
 3. **페이지 검색/생성**: `mcp__notion__API-post-search`로 대상 페이지 검색
@@ -100,38 +105,43 @@ heading_2 → (본문 블록들) → divider
 ````언어` 에서 언어 식별자를 추출하여 `code` 블록의 `language` 필드에 설정.
 지원: java, javascript, typescript, python, bash, sql, json, yaml, html, css, go, kotlin, swift 등
 
-## 기존 페이지에 추가 시
-
-1. `get-block-children`로 기존 블록 조회
-2. 마지막 블록 ID를 `after`로 사용하여 이어서 추가
-3. 기존 내용을 덮어쓰지 않음
-
-## 기존 페이지 내용 교체 시
-
-사용자가 기존 내용 교체를 요청하면:
-1. `get-block-children`로 모든 블록 ID 수집
-2. Bash로 Python 스크립트를 실행하여 블록 배치 삭제 (rate limit: 0.35초/3건)
-3. 새 블록 작성
-
-### 배치 삭제 스크립트 패턴
-```python
-import urllib.request, json, time
-TOKEN = "<notion-token>"
-headers = {"Authorization": f"Bearer {TOKEN}", "Notion-Version": "2022-06-28"}
-block_ids = [...]
-for i, bid in enumerate(block_ids):
-    req = urllib.request.Request(f"https://api.notion.com/v1/blocks/{bid}", method="DELETE", headers=headers)
-    urllib.request.urlopen(req)
-    if (i + 1) % 3 == 0: time.sleep(0.35)
-```
-
 ## 중요 규칙
 
+- **MCP만 사용**: 모든 Notion API 호출은 반드시 Notion MCP 도구를 통해서만 수행한다. Python, urllib, curl 등으로 Notion API를 직접 호출하는 것은 절대 금지.
+- **항상 새 페이지 생성**: 기존 페이지를 수정하거나 이어붙이지 않는다. 항상 `API-post-page`로 새 페이지를 만든다.
 - **MCP 스키마 제한 무시**: 스키마에는 paragraph/bulleted_list_item만 보이지만, 실제로는 모든 Notion API 블록 타입이 동작한다. 그대로 전달하면 된다.
-- **rate limit**: Notion API는 초당 3 요청 제한. 대량 작업 시 딜레이 필수.
-- **블록 타입 변경 불가**: Notion API는 블록 타입 변경을 지원하지 않음. 삭제 후 재생성 필요.
+- **MCP 파라미터는 객체로 전달**: JSON 문자열이 아닌 객체로 넘겨야 한다. 문자열로 넘기면 실패한다.
+- **rate limit**: Notion API는 초당 3 요청 제한. 대량 작업 시 배치 호출 사이에 딜레이 필수.
 - **중첩 제한**: 블록 중첩은 최대 2단계.
-- **Notion Token**: MCP 서버에 설정된 토큰을 사용. Bash에서 직접 API 호출 시에도 동일 토큰 사용.
+
+## MCP 도구 호출 형식
+
+### API-post-page (페이지 생성)
+```
+parent: {"page_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"}
+properties: {"title": [{"text": {"content": "페이지 제목"}}]}
+```
+- parent는 반드시 객체로 전달 (문자열 금지)
+- page_id는 UUID 형식 (하이픈 포함)
+
+### API-patch-block-children (블록 추가)
+```
+block_id: "페이지 또는 블록 ID"
+children: [블록 객체 배열 (최대 100개)]
+```
+
+### API-post-search (페이지 검색)
+```
+query: "검색어"
+filter: {"property": "object", "value": "page"}
+page_size: 10
+```
+
+### API-get-block-children (블록 조회)
+```
+block_id: "페이지 또는 블록 ID"
+page_size: 100
+```
 
 ## 보고 형식
 
